@@ -5,6 +5,7 @@
 
 import java.io.*;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import org.json.simple.JSONObject;
@@ -31,8 +32,9 @@ public class APIConsumer {
 
             Scanner scan = new Scanner(url.openStream());
             String str = "";
-            while (scan.hasNext())
+            while (scan.hasNext()) {
                 str += scan.nextLine();
+            }
             scan.close();
 
             // Parse String to JSONArray
@@ -63,8 +65,9 @@ public class APIConsumer {
                 csv.append(line);
             }
             csv.close();
-
-        } catch (IOException ex) {
+        } catch (UnknownHostException ex) {
+            System.out.println("Error: " + ex + "\n" + "Can't connect to server. Please check your network connection!");
+        } catch (Exception ex) {
             System.out.println("Error: " + ex);
         }
     }
