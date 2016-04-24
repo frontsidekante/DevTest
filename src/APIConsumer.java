@@ -46,7 +46,7 @@ public class APIConsumer {
             File file = new File(city + ".csv");
             FileWriter csv = new FileWriter(file, false);
             int size = jsArray.size();
-            csv.append("_id;name;type;latitude;longitude" + "\n");
+            csv.append("_id;name;type;latitude;longitude" + "\r\n");
 
             for(int i = 0; i < size; i++){
                 String line = "";
@@ -60,13 +60,14 @@ public class APIConsumer {
                 JSONObject geo_position = (JSONObject) jsonObj.get("geo_position");
 
                 line += String.valueOf(geo_position.get("latitude") + ";");
-                line += String.valueOf(geo_position.get("longitude") + "\n");
+                line += String.valueOf(geo_position.get("longitude") + "\r\n");
 
                 csv.append(line);
             }
             csv.close();
+            System.out.println(size + " hits were found for query: " + city);
         } catch (UnknownHostException ex) {
-            System.out.println("Error: " + ex + "\n" + "Can't connect to server. Please check your network connection!");
+            System.out.println("Error: " + ex + "\r\n" + "Can't connect to server. Please check your network connection!");
         } catch (Exception ex) {
             System.out.println("Error: " + ex);
         }
